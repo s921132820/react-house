@@ -1,0 +1,57 @@
+.App {
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+.container {
+  width:300px;
+}
+
+.Menu-wrap {
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+  background:royalblue;
+  color:#fff;
+  padding:10px 20px;
+}
+
+.list {
+  padding:0 20px;
+  text-align: center;
+}
+
+.list h4 {
+  display:inline-block;
+  margin-right:15px;
+}
+
+.modal {
+  padding:20px 20px;
+  background:#eee;
+  margin-top:30px;
+}
+
+.modal h4 {
+  margin:10px 0;
+}
+
+.report {
+  font-size:10px;
+  font-weight:400;
+}
+
+.reportCount {
+  background:red;
+  display:inline-block;
+  padding:3px;
+  width:15px;
+  height:15px;
+  font-size:10px;
+  color:#fff;
+  border-radius:10px;
+  margin-left:5px;
+}
+
+/* reset */
+p {margin:0}
