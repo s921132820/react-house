@@ -12,8 +12,11 @@
   justify-content:space-between;
   align-items:center;
   background:royalblue;
-  color:#fff;
   padding:10px 20px;
+}
+
+.Menu-wrap a {
+  color:#fff;
 }
 
 .list {
@@ -55,3 +58,4 @@
 
 /* reset */
 p {margin:0}
+a {text-decoration:none;}

@@ -34,7 +34,7 @@ function App() {
         menus.map(function(x, index) {
           return (
             <div className="item">
-              <p>{menus[index]}</p>
+              <a href="#">{menus[index]}</a>
           </div>
           )
         })
