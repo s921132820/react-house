@@ -1,71 +1,89 @@
-import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
-import Modal from "./Modal";
+import data from "./data/oneroom";
+import Modal from "./pages/Modal";
+import List from "./pages/List";
+import Login from "./pages/Login";
+import { asc, desc } from './component/common';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+
 
 function App() {
   let [menus, setMenus] = useState(['Home', 'Shop', 'About']);
-  let [prices, setPrices] = useState([50, 55, 70]);
-  let [products, setProduct] = useState(['역삼동원룸', '천호동원룸', '마포구원룸']);
-  let [content, setContent] = useState ([ 
-    '침실만 따로 있는 공용 셰어하우스입니다. 최대 2인 가능',
-    '2층 원룸입니다. 비올 때 물 가끔 들어오는거 빼면 좋아요',
-    '살기 좋아요. 주변에 편의점 10개 넘어요.'
-  ])
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const [rooms, setRooms] = useState(data);
+  // const navigate = useNavigate();
 
-  let [reportCount, setReportCount] = useState([0, 0, 0])
+  // Modal 스테이트 생성
+  let [showModal, setShowModal] =useState(false);
+  let [selectedIndex, setSelectedIndex] = useState(null);
 
-  function addReport(num) {
-    let copyReport = [... reportCount];
-    copyReport[num] += 1;
-    setReportCount([... copyReport])
+  const handleClick = (index) => {
+    setSelectedIndex(index);
+    setShowModal(true);
+  };
+
+  // 로그인 관련
+  const handleLogin = (user) => {
+    setUserInfo(user);  // 로그인 성공 시 사용자 정보를 저장
+    setIsLoggedIn(true); // 로그인 상태를 true로 설정
+  };
+
+  if (!isLoggedIn) {
+    return (
+    // return <Login onLogin={handleLogin} />; // 로그인하지 않았으면 Login 화면을 보여줌
+    <Router> {/* BrowserRouter로 감싸기 */}
+    <Routes>
+      <Route path="/" element={<Login onLogin={handleLogin} />} /> {/* 기본 경로는 로그인 페이지 */}
+      <Route path="/home" element={<div>Home Page</div>} /> {/* 예시: 로그인 후 이동할 페이지 */}
+    </Routes>
+    </Router>
+    )
   }
-
-    // Modal 스테이트 생성
-    let [showModal, setShowModal] =useState(false);
-    let [selectedIndex, setSelectedIndex] = useState(null);
 
   return (
     <div className="App">
+
       <div className="container">
       {/* 메뉴영역 */}
       <header className="Menu-wrap">
         {
         menus.map(function(x, index) {
           return (
-            <div className="item">
+            <div className="item" key={index}>
               <a href="#">{menus[index]}</a>
           </div>
           )
         })
         }
       </header>
+      <div>
+        <button onClick={()=>asc(rooms, setRooms)}>오름차순</button>
+        <button onClick={()=>desc(rooms, setRooms)}>내림차순</button>
+      </div>
       {/* 메뉴영역 끝 */}
 
       {/* 리스트 시작*/}
       {
-        products.map(function(x, index) {
-          return (
-          // 리스트시작
-          <div className="list" key={index}>
-            <h4 
-              onClick={()=> {
-                if (showModal && selectedIndex === index) {
-                  setShowModal(false);
-                  setSelectedIndex(null);
-                } else {
-                  setSelectedIndex(index);
-                  setShowModal(true);
-                }
-              }}
-              >
-              {products[index]}
-            </h4>
-            <span className="report" onClick = {() => {addReport(index)}}> ☎ 허위매물신고</span>
-            <span className="reportCount">{reportCount[index]}</span>
-            <p>{prices[index]}</p>
-          </div>
-          // 리스트 종료
+        rooms.map((room) => {
+          return(
+            <div key={room.id} className="list-wrap">
+              <List 
+              title = {room.title}
+              image = {room.image}
+              // content = {item.content}
+              price = {room.price}
+              bad = {room.bad}
+              id={room.id}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
+              onClick={() => handleClick(room.id)}
+              />
+
+            </div>
           )
         })
       }
@@ -74,9 +92,12 @@ function App() {
       {/* 상세페이지 시작 */}
       {showModal && selectedIndex !== null && (
         <Modal
-          products={products[selectedIndex]}
-          prices={prices[selectedIndex]}
-          content={content[selectedIndex]}
+          title={data[selectedIndex].title}
+          image={data[selectedIndex].image}
+          content={data[selectedIndex].content}
+          price={data[selectedIndex].price}
+          bad={data[selectedIndex].bad}
+          onClose={() => setShowModal(false)} // 모달 닫기 핸들러
         />
       )}
       {/* 상세페이지 종료 */}
