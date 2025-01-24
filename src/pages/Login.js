@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import user from '../data/user'; // user.js 파일 import
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import Signup from './Signup';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -48,9 +49,12 @@ const Login = ({ onLogin }) => {
         />
         <button type="submit">Login</button>
         {/* 회원가입 버튼 */}
-        <button type="button" onClick={handleSignupRedirect}>Sign Up</button>
+        <button type="button" onClick={()=> navigate("/signup")}> Signup
+        </button>
       </form>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+
+
     </div>
   );
 };

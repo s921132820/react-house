@@ -4,6 +4,7 @@ import data from "./data/oneroom";
 import Modal from "./pages/Modal";
 import List from "./pages/List";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import { asc, desc } from './component/common';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 
@@ -34,17 +35,17 @@ function App() {
     return (
     // return <Login onLogin={handleLogin} />; // 로그인하지 않았으면 Login 화면을 보여줌
     <Router> {/* BrowserRouter로 감싸기 */}
-    <Routes>
-      <Route path="/" element={<Login onLogin={handleLogin} />} /> {/* 기본 경로는 로그인 페이지 */}
-      <Route path="/home" element={<div>Home Page</div>} /> {/* 예시: 로그인 후 이동할 페이지 */}
-    </Routes>
+      <Routes>
+        <Route path="/" element={<Login onLogin={handleLogin} />} /> {/* 기본 경로는 로그인 페이지 */}
+        <Route path="/home" element={<div>Home Page</div>} /> 
+        <Route path="/signup" element={<Signup />}></Route>
+      </Routes>
     </Router>
     )
   }
 
   return (
     <div className="App">
-
       <div className="container">
       {/* 메뉴영역 */}
       <header className="Menu-wrap">
@@ -61,6 +62,7 @@ function App() {
       <div>
         <button onClick={()=>asc(rooms, setRooms)}>오름차순</button>
         <button onClick={()=>desc(rooms, setRooms)}>내림차순</button>
+        <button onClick={()=>setIsLoggedIn(false)}>로그아웃</button>
       </div>
       {/* 메뉴영역 끝 */}
 
@@ -72,7 +74,6 @@ function App() {
               <List 
               title = {room.title}
               image = {room.image}
-              // content = {item.content}
               price = {room.price}
               bad = {room.bad}
               id={room.id}

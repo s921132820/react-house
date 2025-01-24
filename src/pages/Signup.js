@@ -36,7 +36,7 @@ const Signup = () => {
     user.push(newUser);
 
     // 회원가입 후 로그인 페이지로 리다이렉트
-    navigate('/login');
+    navigate('/');
   };
 
   return (
