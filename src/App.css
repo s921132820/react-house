@@ -1,32 +1,96 @@
+/* font */
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+}
+
+body, p {
+  font-family: 'Pretendard-Regular';
+}
+
+
 .App {
   width:100%;
-  display:flex;
   justify-content:center;
+  width:768px;
 }
+
 .container {
   width:768px;
+}
+.container-50 {width:50%}
+.logo {
+  color:royalblue!important;
+  font-weight:900;
+  font-size:20px;
+  margin-right:15px;
+}
+
+.login .userInfoArea {display:flex; align-items:center;}
+.login .userInfoArea .userImage {width:20px; height:20px; border-radius:100%; margin-right:10px;}
+
+/* mainPage */
+.manu-box {
+  padding:20px;
+  border:1px solid #ededed;
+  background:#fff;
+  border-radius:10px;
+  transition: 200ms;
+  box-sizing: border-box;
+  margin:5px;
+}
+
+.manu-box:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px 0px;
 }
 
 .Menu-wrap {
   display: flex;
   justify-content:space-between;
   align-items:center;
-  background:royalblue;
+  background:#fff;
   padding:10px 20px;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom:10px;
 }
 
 .Menu-wrap a {
-  color:#fff;
+  color:#666;
+  padding-right:10px;
+  cursor: pointer;
 }
 
-.list {
-  padding:0 20px;
-  text-align: center;
+.list-wrap{
+  
+}
+.list-wrap .room-list {
+  height:100vh;
+  overflow: scroll;
 }
 
-.list h4 {
-  display:inline-block;
-  margin-right:15px;
+.list-wrap .room-list .list-item{
+  display: flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border-bottom:1px solid #eaeaea;
+}
+
+.list-wrap .room-list .list-item .list-thumb {
+  width:150px;
+  height:150px;
+  min-width:150px;
+  min-height:150px;
+  overflow:hidden;
+}
+.list-wrap .room-list .list-item .list-thumb img {
+  width:100%;
+  height:100%;
+  min-width:100%;
+  min-height:100%;
+  object-fit: cover;
 }
 
 .modal {
@@ -56,6 +120,10 @@
   margin-left:5px;
 }
 
+/**/
+.grid{display:grid;}
+
+
 /* reset */
-p {margin:0}
+p, h4 {margin:0}
 a {text-decoration:none;}
